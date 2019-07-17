@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html ng-app="ng-app-nm">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>主页</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="nm-css/index.css" rel="stylesheet">
+    <script src="nm-js/angular.min.js"></script>
+    <script src="nm-js/angular-cookies.min.js"></script>
+
+</head>
+
+<body ng-controller="ng-ctrl-nm-index" class="">
+<div id="topAnchor"></div>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="logo-element" ng-dblclick="getSecret()">
+                        主页
+                    </div>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa">全部</i> <span class="nav-label"></span></a>
+                </li>
+                <!--<li ng-repeat="li in catalogList">-->
+                    <!--<a><i class="fa">{{li.name}}</i> <span class="nav-label"></span> <span class="fa arrow"></span></a>-->
+                    <!--<ul class="nav nav-second-level collapse">-->
+                        <!--<li ng-repeat="catalogLi in li.children"><a href="index.html?msort={{catalogLi.msort}}&misort={{catalogLi.misort}}">{{catalogLi.name}}</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ">主页</a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    <li><a href="#bottomAnchor"><i class="fa fa-arrow-down"></i></a></li>
+                    <!--<li><a data-toggle="modal" data-target="#myModal_notice"><i class="fa fa-info-circle"></i></a></li>-->
+                    <!--<li>-->
+                        <!--<a href="order-list.html"><i class="fa fa-list"></i></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="cart.html">-->
+                            <!--<i class="fa fa-shopping-cart"></i>({{sc.length}})-->
+                        <!--</a>-->
+                    <!--</li>-->
+                </ul>
+
+            </nav>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading" style="padding: 0px">
+            <h1>主页</h1>
+            <!--<div class="col-xs-6" style="padding: 0px">-->
+                <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon"><strong>品牌：</strong></span>-->
+                    <!--<button class="form-control" data-toggle="modal" data-target="#myModal_brand"><span class="pull-left" style="padding-left: 4px">{{brandName}}</span></button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6" style="padding: 0px">-->
+                <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon"><strong>尺码：</strong></span>-->
+                    <!--<select class="form-control" ng-model="size" ng-options="s.id as s.name for s in sizeList" ng-change="changeSelect()"></select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6" style="padding: 0px">-->
+                <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon"><strong>价格：</strong></span>-->
+                    <!--<select class="form-control" ng-model="salePriceSort" ng-options="s.id as s.name for s in priceSortList" ng-change="changeSelect()"></select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6" style="padding: 0px">-->
+                <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon"><strong>瑕疵：</strong></span>-->
+                    <!--<select class="form-control" ng-model="flaw" ng-options="s.id as s.name for s in flawList" ng-change="changeSelect()"></select>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="row">
+            <!--<div class="col-xs-6 col-sm-4" ng-repeat="prd in productList" style="padding: 0px">-->
+                <!--<div class="ibox">-->
+                    <!--<div class="ibox-content product-box">-->
+                        <!--<div class="product-imitation">-->
+                            <!--<a href="product.html?sku={{prd.nmSku}}"><img alt="image" class="img-responsive" src="{{prd.imgMain | imgFilter}}"></a>-->
+                        <!--</div>-->
+                        <!--<div class="product-desc">-->
+                            <!--<a href="product.html?sku={{prd.nmSku}}" class="productListWord">{{prd.title}}</a>-->
+                            <!--<div class="small m-t-xs text-danger">{{prd.flawDescribe}}</div>-->
+                            <!--<small class="market-price"> ¥{{prd.marketPrice}} </small><small class="sale-price text-danger"> ¥{{prd.mySalePrice}} </small>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <div class="row">
+            <!--<div class="col-xs-2 no-padding">-->
+                <!--<a class="form-control btn" href="#topAnchor"><i class="fa fa-arrow-up"></i></a>-->
+            <!--</div>-->
+            <!--<div class="col-xs-10 no-padding" ng-show="page<totalPage">-->
+                <!--<button class="form-control btn" ng-click="getMore()">加载更多...(第{{page}}页/共{{totalPage}}页)</button>-->
+            <!--</div>-->
+        </div>
+
+        <!--<div class="row">-->
+            <!--<div class="col-lg-12">-->
+                <!--<div style="text-align: center"> <ul id="pageLimit" style="margin-bottom: 0px;"></ul></div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+
+    <div class="modal inmodal" id="myModal_brand" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <div class="btn-group">
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='all'" ng-class="{'active':brandFirstWord=='all'}">全部</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='0-9'" ng-class="{'active':brandFirstWord=='0-9'}">0-9</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='A'" ng-class="{'active':brandFirstWord=='A'}">A</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='B'" ng-class="{'active':brandFirstWord=='B'}">B</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='C'" ng-class="{'active':brandFirstWord=='C'}">C</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='D'" ng-class="{'active':brandFirstWord=='D'}">D</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='E'" ng-class="{'active':brandFirstWord=='E'}">E</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='F'" ng-class="{'active':brandFirstWord=='F'}">F</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='G'" ng-class="{'active':brandFirstWord=='G'}">G</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='H'" ng-class="{'active':brandFirstWord=='H'}">H</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='I'" ng-class="{'active':brandFirstWord=='I'}">I</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='J'" ng-class="{'active':brandFirstWord=='J'}">J</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='K'" ng-class="{'active':brandFirstWord=='K'}">K</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='L'" ng-class="{'active':brandFirstWord=='L'}">L</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='M'" ng-class="{'active':brandFirstWord=='M'}">M</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='N'" ng-class="{'active':brandFirstWord=='N'}">N</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='O'" ng-class="{'active':brandFirstWord=='O'}">O</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='P'" ng-class="{'active':brandFirstWord=='P'}">P</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='Q'" ng-class="{'active':brandFirstWord=='Q'}">Q</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='R'" ng-class="{'active':brandFirstWord=='R'}">R</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='S'" ng-class="{'active':brandFirstWord=='S'}">S</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='T'" ng-class="{'active':brandFirstWord=='T'}">T</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='U'" ng-class="{'active':brandFirstWord=='U'}">U</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='V'" ng-class="{'active':brandFirstWord=='V'}">V</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='W'" ng-class="{'active':brandFirstWord=='W'}">W</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='X'" ng-class="{'active':brandFirstWord=='X'}">X</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='Y'" ng-class="{'active':brandFirstWord=='Y'}">Y</button>
+                        <button class="btn btn-white text-danger" ng-click="brandFirstWord='Z'" ng-class="{'active':brandFirstWord=='Z'}">Z</button>
+                    </div>
+                    <hr>
+                    <div>
+                        <button class="btn btn-white" ng-repeat="btn in brandList | brandFilter:brandFirstWord" ng-click="selectBrand(btn)">{{btn.name}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModal_notice" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-body">
+                    <h3>内卖规则须知</h3>
+                    <hr>
+                    <p>1、内购商品针对YOHO!内部员工定期开放；</p>
+                    <p>2、商品有<strong style="color:red">全新、轻微疵瑕或残次</strong>，请注意相关图片及文字描述；</p>
+                    <p>3、本网站为内部销售，商品售出<strong style="color:red">不可退换</strong>，请注意！</p>
+                    <p>4、选购后<strong style="color:red">1-2日发货（每天下午4点发货）</strong>，1-5日左右收到商品；<strong style="color:red">运费根据收货地址有所不同</strong>，请注意!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn form-control" data-dismiss="modal" style="background-color: #18a689;color: white">知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bottomAnchor"></div>
+</div>
+
+
+
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!--<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>-->
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<!--<script src="js/inspinia.js"></script>-->
+<script src="js/plugins/pace/pace.min.js"></script>
+
+<!-- paginator -->
+<script src="nm-js/bootstrap-paginator.min.js"></script>
+
+<script src="nm-js/ng-app.js"></script>
+<script src="nm-js/ng-ctrl-index.js"></script>
+
+
+<div class="modal inmodal" id="spinnersModal" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static">
+    <div class="sk-spinner sk-spinner-chasing-dots col-lg-12" style="margin-left:50% ; margin-top:25% ; "><div class="sk-dot1"></div><div class="sk-dot2"></div></div>
+</div>
+
+</body>
+
+</html>

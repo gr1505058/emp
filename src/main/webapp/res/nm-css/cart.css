@@ -1,0 +1,12 @@
+.market-price{
+    text-decoration:line-through;
+    color:#999;
+    margin-right:5px
+}
+.sale-price{
+    color: red;
+    font-weight: bold;
+}
+.cart-title{
+    color:#468fa2
+}

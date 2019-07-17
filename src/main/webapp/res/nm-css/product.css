@@ -1,0 +1,18 @@
+.addCartBtn{
+    background-color:red;
+    color: white;
+}
+
+.productDetailWord{
+    color: black;
+}
+
+.market-price{
+    text-decoration:line-through;
+    color:#999;
+    margin-right:5px
+}
+.sale-price{
+    color: black;
+    font-weight: bold;
+}

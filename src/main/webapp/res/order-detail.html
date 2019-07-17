@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html ng-app="ng-app-nm">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>有货内卖-订单详情</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="nm-css/order-detail.css" rel="stylesheet">
+    <script src="nm-js/angular.min.js"></script>
+    <script src="nm-js/angular-cookies.min.js"></script>
+</head>
+
+<body ng-controller="ng-ctrl-nm">
+
+    <div id="wrapper">
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <ul class="nav navbar-top-links navbar-right">
+
+                </ul>
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12 no-padding">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                <a href="index.html" class="pull-left" style="color: black"><strong>有货内卖</strong></a>
+                                <a ng-click="isSeeFull=!isSeeFull"><i class="fa" ng-class="{true:'fa-eye-slash',false:'fa-eye'}[isSeeFull]"></i></a>
+                                <a data-toggle="modal" data-target="#myModal_express"><i class="fa fa-truck"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content no-padding">
+                            <div class="col-xs-12">
+                                <form>
+                                    <div>
+                                        <h3><small>订单编号：</small><span class="text-danger">{{order.id}}</span></h3>
+                                    </div>
+                                    <div><p class="form-control-static">当前状态：<span ng-class="{0:'text-danger',1:'text-primary',2:'text-warning'}[order.status]">{{order.status | statusFilter}}</span></p></div>
+                                </form>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="hr-line-dashed" style="margin: 5px 0"></div>
+                                <form>
+                                    <div><p class="form-control-static"><strong>订单追踪</strong></p></div>
+                                    <div>
+                                        <p class="form-control-static">下单时间：{{order.addTime|timeFilter}}</p>
+                                        <p class="form-control-static">快递单号：{{order.expressNumber}}</p>
+                                        <p class="form-control-static">物流信息：</p>
+                                        <ul>
+                                            <li ng-repeat="expressInfo in expressInfoList track by $index">{{expressInfo}}</li>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="hr-line-dashed" style="margin: 5px 0"></div>
+                                <form>
+                                    <div><p class="form-control-static"><strong>订单信息</strong></p></div>
+                                    <div>
+                                        <p class="form-control-static">收货人：{{order.receiveName | secretFilter:'name':isSeeFull}}</p>
+                                        <p class="form-control-static">收货地址：{{order.receiveAddress | secretFilter:'address':isSeeFull}}</p>
+                                        <p class="form-control-static">联系电话：{{order.receivePhoneNumber | secretFilter:'phone':isSeeFull}}</p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 no-padding">
+                    <div class="ibox float-e-margins" style="margin-bottom:0px">
+                        <div class="ibox-title">
+                            <h5>商品清单</h5>
+                        </div>
+                    </div>
+                    <div class="ibox-content no-padding" ng-repeat="prd in productList">
+                        <div class="col-xs-12">
+                            <div class="profile-image">
+                                <a href="product.html?sku={{prd.nmSku}}"><img src="{{prd.imgMain|imgFilter}}" class="img-responsive" alt="profile"></a>
+                            </div>
+                            <div class="profile-info">
+                                <a href="product.html?sku={{prd.nmSku}}"><h4 class="cart-title">{{prd.title}}</h4></a>
+                                <small class="text-muted">尺码：{{prd.sizeName}}</small>
+                                <small class="sale-price pull-right"> ¥{{prd.mySalePrice}} </small><small class="market-price pull-right m-l-sm"> ¥{{prd.marketPrice}} </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ibox-content no-padding">
+                        <p class="text-primary pull-right" style="margin: 0px;color: black">商品总金额：+ ¥{{totalPrice}}</p>
+                    </div>
+                    <div class="ibox-content no-padding" style="border-color:white">
+                        <p class="pull-right">运费：+ ¥{{freight}}</p>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <p class="pull-right" style="color: black">实际应支付：<strong style="color: red">¥{{totalPriceAll}}</strong>元</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 no-padding">
+                    <div class="ibox float-e-margins" style="margin-bottom:0px">
+                        <div class="ibox-title">
+                            <h5></h5>
+                            <div class="ibox-tools" style="padding-right: 0px">
+                                <a class="btn btn-primary btn-sm" style="color:white">微信联系gawaine90支付</a>
+                                <a class="btn btn-info btn-sm" style="color:white;background-color: #f22b00" href="https://item.taobao.com/item.htm?id=577066802233">去淘宝支付</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal inmodal fade" id="myModal_express" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <i class="fa fa-truck modal-icon"></i>
+                        <h4 class="modal-title">更新订单/物流状态</h4>
+                    </div>
+                    <div class="modal-body" style="padding: 20px">
+                        <form>
+                            <div class="form-group"><label>订单状态：</label><small>0：未支付、1：已支付、2：已取消</small> <input type="text" class="form-control" ng-model="orderStatus"></div>
+                            <div class="form-group"><label>快递单号：</label> <input type="text" class="form-control" ng-model="orderExpressNumber"></div>
+                            <div class="form-group">
+                                <label>物流信息：</label>
+                                <textarea rows="6" class="form-control" ng-model="orderExpressInfo"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" ng-click="updateExpress()">更新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- blueimp gallery -->
+    <script src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+    <script src="nm-js/ng-app.js"></script>
+    <script src="nm-js/ng-ctrl-order-detail.js"></script>
+
+    <div class="modal inmodal" id="spinnersModal" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static">
+        <div class="sk-spinner sk-spinner-chasing-dots col-lg-12" style="margin-left:50% ; margin-top:25% ; "><div class="sk-dot1"></div><div class="sk-dot2"></div></div>
+    </div>
+</body>
+
+</html>

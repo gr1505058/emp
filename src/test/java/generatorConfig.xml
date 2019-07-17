@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <classPathEntry location="E:\maven\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar" />
+  <context id="context1" >
+   <commentGenerator>
+  		<property name="suppressAllComments" value="true"/>  
+    </commentGenerator>
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://132.232.95.192:3306/nm" userId="test" password="123456" />
+    <javaModelGenerator targetPackage="cn.gr.entity" targetProject="src/main/java" />
+    <sqlMapGenerator targetPackage="cn.gr.mapper" targetProject="src/main/java" />
+    <javaClientGenerator targetPackage="cn.gr.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+      <!--
+    <table schema="yat" tableName="jmx_thread_group" >
+      针对text类型 <columnOverride column="log" jdbcType="VARCHAR" />
+    </table>
+      -->
+      <table schema="yat" tableName="nm_catalog" ></table>
+      <table schema="yat" tableName="nm_brand" ></table>
+      <table schema="yat" tableName="nm_size" ></table>
+      <table schema="yat" tableName="nm_product" ></table>
+      <table schema="yat" tableName="nm_order" ></table>
+
+      <!--
+      <table schema="yat" tableName="jmx_backend_listener" ></table>
+      <table schema="yat" tableName="jmx_cookie_manager" ></table>
+      <table schema="yat" tableName="jmx_csv_data_set" ></table>
+      <table schema="yat" tableName="jmx_header_manager" ></table>
+      <table schema="yat" tableName="jmx_http_sampler_proxy" ></table>
+      <table schema="yat" tableName="jmx_test_plan" >
+          <columnOverride column="list_transaction" jdbcType="VARCHAR" />
+          <columnOverride column="list_tc_name" jdbcType="VARCHAR" />
+          <columnOverride column="list_gor" jdbcType="VARCHAR" />
+      </table>
+      -->
+
+  </context>
+</generatorConfiguration>
+
+<!--注意
+        在第二次或之后运行生成文件的时候，java类会被覆盖，也就是说如果对实体对象进行了手动修改的话需要慎重；还有：
+        xml文件不会被覆盖，只是追加，这样会导致xml文件中重复模块，因此需要删除xml文件后生成。
+        -->

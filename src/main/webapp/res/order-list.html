@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html ng-app="ng-app-nm">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>有货内卖-订单列表</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="nm-css/order-list.css" rel="stylesheet">
+    <script src="nm-js/angular.min.js"></script>
+    <script src="nm-js/angular-cookies.min.js"></script>
+</head>
+
+<body ng-controller="ng-ctrl-nm">
+
+    <div id="wrapper">
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <ul class="nav navbar-top-links navbar-right">
+
+                </ul>
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12 no-padding">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                <a href="index.html" class="pull-left" style="color: black"><strong>有货内卖</strong></a>
+                                <a href="cart.html">
+                                    <i class="fa fa-shopping-cart"></i> 购物车({{sc.length}})
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 no-padding">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="输入订单号/手机号，搜索订单" ng-model="searchData">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary" ng-click="getOrderListFromSearch()"><i class="fa fa-search"> 搜索</i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 no-padding"  ng-repeat="ord in orderList">
+                    <div class="ibox float-e-margins" style="margin-bottom:0px">
+                        <div class="ibox-title">
+                            <h5 class="text-navy">订单编号：{{ord.id}}</h5>
+                            <div class="ibox-tools">
+                                <a style="color: #468fa2" href="order-detail.html?oid={{ord.id}}">查看订单</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <div class="col-xs-12">
+                            <div class="profile-image">
+                                <a href="product.html?sku={{ord.prd.nmSku}}"><img src="{{ord.prd.imgMain|imgFilter}}" class="img-responsive" alt="profile"></a>
+                            </div>
+                            <div class="profile-info">
+                                <a href="product.html?sku={{ord.prd.nmSku}}"><h4 class="cart-title">{{ord.prd.title}}</h4></a>
+                                <small class="text-muted">尺码：{{ord.prd.sizeName}}</small>
+                                <small class="text-muted pull-right">商品数量：{{ord.productNum}}</small>
+                                <p class="text-right" style="margin: 5px 0px 0px 0px">订单总价：<strong style="color: black">¥{{ord.totalPrice}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content no-padding" style="border-color:white">
+                        <div class="col-xs-12">
+                            <p class="pull-left">下单时间：<span>{{ord.addTime | timeFilter}}</span></p>
+                            <p class="pull-right">订单状态：<span ng-class="{0:'text-danger',1:'text-primary',2:'text-warning'}[ord.status]">{{ord.status | statusFilter}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 no-padding" ng-show="totalPage > 1">
+                    <div class="col-xs-2 no-padding">
+                        <button class="form-control btn" ng-click="pageChange('first')">首页</button>
+                    </div>
+                    <div class="col-xs-3 no-padding">
+                        <button class="form-control btn" ng-click="pageChange('prev')">上一页</button>
+                    </div>
+                    <div class="col-xs-2 no-padding">
+                        <button class="form-control btn" ng-click="pageChange('input')">{{page}}/{{totalPage}}</button>
+                    </div>
+                    <div class="col-xs-3 no-padding">
+                        <button class="form-control btn" ng-click="pageChange('next')">下一页</button>
+                    </div>
+                    <div class="col-xs-2 no-padding">
+                        <button class="form-control btn" ng-click="pageChange('last')">尾页</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <h2 class="col-lg-12 text-muted text-center" ng-show="orderList.length == 0">
+                订单列表为空！
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- blueimp gallery -->
+    <script src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+    <script src="nm-js/ng-app.js"></script>
+    <script src="nm-js/ng-ctrl-order-list.js"></script>
+
+    <div class="modal inmodal" id="spinnersModal" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static">
+        <div class="sk-spinner sk-spinner-chasing-dots col-lg-12" style="margin-left:50% ; margin-top:25% ; "><div class="sk-dot1"></div><div class="sk-dot2"></div></div>
+    </div>
+</body>
+
+</html>

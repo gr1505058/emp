@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="ng-app-nm">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>有货内卖-购物车</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="nm-css/cart.css" rel="stylesheet">
+    <script src="nm-js/angular.min.js"></script>
+    <script src="nm-js/angular-cookies.min.js"></script>
+
+</head>
+
+<body ng-controller="ng-ctrl-nm-product">
+
+    <div id="wrapper">
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <ul class="nav navbar-top-links navbar-right">
+
+                </ul>
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12 no-padding">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="ibox-tools">
+                                <a href="index.html" class="pull-left" style="color: black"><strong>有货内卖</strong></a>
+                                <a href="order-list.html"><i class="fa fa-list"></i> 订单列表</a>
+                                <a ng-click="clearCart()">
+                                    清空购物车
+                                </a>
+                                <a ng-click="editCart=true" ng-show="!editCart">
+                                    编辑
+                                </a>
+                                <a ng-click="editCart=false" style="color:#337ab7" ng-show="editCart">
+                                    完成
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content no-padding" ng-repeat="prd in productList">
+                            <div class="col-xs-12">
+                                <div class="profile-image">
+                                    <div class="i-checks pull-left" style="padding-top: 30%;"><label><input type="checkbox" ng-checked="prd.check" ng-click="check($index)"></label></div>
+                                    <a href="product.html?sku={{prd.nmSku}}" style="width: 120px"><img src="{{prd.imgMain|imgFilter}}" class="img-responsive" alt="profile" style="width: 96px;height: 96px"></a>
+                                </div>
+                                <div class="profile-info">
+                                    <a href="product.html?sku={{prd.nmSku}}"><h4 class="cart-title">{{prd.title}}</h4></a>
+                                    <small class="text-muted">尺码：{{prd.sizeName}}</small>
+                                    <small class="sale-price pull-right"> ¥{{prd.mySalePrice}} </small><small class="market-price pull-right m-l-sm"> ¥{{prd.marketPrice}} </small>
+                                    <button class="btn form-control" style="margin-bottom:0px;background-color: red;color: white" ng-click="removeCart(prd.nmSku)" ng-show="editCart">删除</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content no-padding">
+                            <div class="col-xs-12">
+                                <div class="profile-image">
+                                    <div class="i-checks pull-left" style="padding-top: 10px;"><label><input type="checkbox" ng-checked="isSelectAll" ng-click="selectAll()"></label><p><strong>全选</strong></p></div>
+                                </div>
+                                <div class="profile-info">
+                                    <h4 class="cart-title" style="color: red;margin-top: 10px;">总计：¥{{totalPrice}}（{{selectedNum}}件）</h4>
+                                    <small class="text-muted">含运费{{freight}}元</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content no-padding">
+                            <div class="col-xs-12">
+                                <a href="order.html?sku={{selectedSku}}" class="btn form-control" style="margin-bottom:0px;background-color: red;color: white" ng-show="selectedNum>0">去结算</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!--<div class="modal inmodal fade" id="myModal_share" tabindex="-1" role="dialog" aria-hidden="true">-->
+            <!--<div class="modal-dialog modal-sm">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-body" style="padding: 20px">-->
+                        <!--&lt;!&ndash;<p id="shareP" style="margin: 0px">我在有货内卖网（http://nm.gawaine90.xyz）上看到了许多便宜的正品货#{{skuSecretCode}}#，快来瞧一瞧看一看呐!</p>&ndash;&gt;-->
+                        <!--<textarea id="shareP" style="width: 100%" rows="6">我在有货内卖网（http://nm.gawaine90.xyz）上看到了许多便宜的正品货#{{skuSecretCode}}#，快来瞧一瞧看一看呐!</textarea>-->
+                        <!--<p class="animated pull-right text-info" id="animation_box_copy" ng-show="copySuccess"><strong>复制成功</strong></p>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+
+                        <!--<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>-->
+                        <!--<button type="button" class="btn btn-primary" ngclipboard ngclipboard-success="onCopySuccess(e);" ngclipboard-error="onCopyError(e);" data-clipboard-target="#shareP">复制，去粘贴</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- blueimp gallery -->
+    <script src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+    <script src="nm-js/ng-app.js"></script>
+    <script src="nm-js/ng-ctrl-cart.js"></script>
+
+</body>
+
+</html>

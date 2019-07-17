@@ -1,0 +1,18 @@
+.market-price{
+    text-decoration:line-through;
+    color:#999;
+    margin-right:5px
+}
+.sale-price{
+    color: black;
+}
+.social-avatar{
+    padding: 0px;
+}
+.social-body {
+    padding: 2px;
+}
+.productListWord{
+    /*font-weight: bold;*/
+    color: black;
+}

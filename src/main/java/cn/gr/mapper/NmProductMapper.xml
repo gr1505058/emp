@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gr.mapper.NmProductMapper" >
+  <resultMap id="BaseResultMap" type="cn.gr.entity.NmProduct" >
+    <id column="nm_sku" property="nmSku" jdbcType="INTEGER" />
+    <result column="msort" property="msort" jdbcType="INTEGER" />
+    <result column="misort" property="misort" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="INTEGER" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="is_flaw" property="isFlaw" jdbcType="TINYINT" />
+    <result column="img_main" property="imgMain" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="market_price" property="marketPrice" jdbcType="INTEGER" />
+    <result column="sale_price" property="salePrice" jdbcType="INTEGER" />
+    <result column="my_sale_price" property="mySalePrice" jdbcType="INTEGER" />
+    <result column="flaw_describe" property="flawDescribe" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="skn" property="skn" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="stock_num" property="stockNum" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    nm_sku, msort, misort, brand, size, is_flaw, img_main, title, market_price, sale_price, 
+    my_sale_price, flaw_describe, sku, skn, detail, stock_num, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.gr.entity.NmProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nm_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from nm_product
+    where nm_sku = #{nmSku,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from nm_product
+    where nm_sku = #{nmSku,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.gr.entity.NmProductExample" >
+    delete from nm_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.gr.entity.NmProduct" >
+    insert into nm_product (nm_sku, msort, misort, 
+      brand, size, is_flaw, 
+      img_main, title, market_price, 
+      sale_price, my_sale_price, flaw_describe, 
+      sku, skn, detail, stock_num, 
+      update_time)
+    values (#{nmSku,jdbcType=INTEGER}, #{msort,jdbcType=INTEGER}, #{misort,jdbcType=INTEGER}, 
+      #{brand,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}, #{isFlaw,jdbcType=TINYINT}, 
+      #{imgMain,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{marketPrice,jdbcType=INTEGER}, 
+      #{salePrice,jdbcType=INTEGER}, #{mySalePrice,jdbcType=INTEGER}, #{flawDescribe,jdbcType=VARCHAR}, 
+      #{sku,jdbcType=VARCHAR}, #{skn,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{stockNum,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.gr.entity.NmProduct" >
+    insert into nm_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nmSku != null" >
+        nm_sku,
+      </if>
+      <if test="msort != null" >
+        msort,
+      </if>
+      <if test="misort != null" >
+        misort,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="isFlaw != null" >
+        is_flaw,
+      </if>
+      <if test="imgMain != null" >
+        img_main,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="marketPrice != null" >
+        market_price,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="mySalePrice != null" >
+        my_sale_price,
+      </if>
+      <if test="flawDescribe != null" >
+        flaw_describe,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="skn != null" >
+        skn,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nmSku != null" >
+        #{nmSku,jdbcType=INTEGER},
+      </if>
+      <if test="msort != null" >
+        #{msort,jdbcType=INTEGER},
+      </if>
+      <if test="misort != null" >
+        #{misort,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=INTEGER},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="isFlaw != null" >
+        #{isFlaw,jdbcType=TINYINT},
+      </if>
+      <if test="imgMain != null" >
+        #{imgMain,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null" >
+        #{marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=INTEGER},
+      </if>
+      <if test="mySalePrice != null" >
+        #{mySalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="flawDescribe != null" >
+        #{flawDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="skn != null" >
+        #{skn,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.gr.entity.NmProductExample" resultType="java.lang.Integer" >
+    select count(*) from nm_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nm_product
+    <set >
+      <if test="record.nmSku != null" >
+        nm_sku = #{record.nmSku,jdbcType=INTEGER},
+      </if>
+      <if test="record.msort != null" >
+        msort = #{record.msort,jdbcType=INTEGER},
+      </if>
+      <if test="record.misort != null" >
+        misort = #{record.misort,jdbcType=INTEGER},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=INTEGER},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=INTEGER},
+      </if>
+      <if test="record.isFlaw != null" >
+        is_flaw = #{record.isFlaw,jdbcType=TINYINT},
+      </if>
+      <if test="record.imgMain != null" >
+        img_main = #{record.imgMain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marketPrice != null" >
+        market_price = #{record.marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.salePrice != null" >
+        sale_price = #{record.salePrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.mySalePrice != null" >
+        my_sale_price = #{record.mySalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.flawDescribe != null" >
+        flaw_describe = #{record.flawDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sku != null" >
+        sku = #{record.sku,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skn != null" >
+        skn = #{record.skn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null" >
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nm_product
+    set nm_sku = #{record.nmSku,jdbcType=INTEGER},
+      msort = #{record.msort,jdbcType=INTEGER},
+      misort = #{record.misort,jdbcType=INTEGER},
+      brand = #{record.brand,jdbcType=INTEGER},
+      size = #{record.size,jdbcType=INTEGER},
+      is_flaw = #{record.isFlaw,jdbcType=TINYINT},
+      img_main = #{record.imgMain,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      market_price = #{record.marketPrice,jdbcType=INTEGER},
+      sale_price = #{record.salePrice,jdbcType=INTEGER},
+      my_sale_price = #{record.mySalePrice,jdbcType=INTEGER},
+      flaw_describe = #{record.flawDescribe,jdbcType=VARCHAR},
+      sku = #{record.sku,jdbcType=VARCHAR},
+      skn = #{record.skn,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      stock_num = #{record.stockNum,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gr.entity.NmProduct" >
+    update nm_product
+    <set >
+      <if test="msort != null" >
+        msort = #{msort,jdbcType=INTEGER},
+      </if>
+      <if test="misort != null" >
+        misort = #{misort,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=INTEGER},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="isFlaw != null" >
+        is_flaw = #{isFlaw,jdbcType=TINYINT},
+      </if>
+      <if test="imgMain != null" >
+        img_main = #{imgMain,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null" >
+        market_price = #{marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=INTEGER},
+      </if>
+      <if test="mySalePrice != null" >
+        my_sale_price = #{mySalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="flawDescribe != null" >
+        flaw_describe = #{flawDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="skn != null" >
+        skn = #{skn,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where nm_sku = #{nmSku,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gr.entity.NmProduct" >
+    update nm_product
+    set msort = #{msort,jdbcType=INTEGER},
+      misort = #{misort,jdbcType=INTEGER},
+      brand = #{brand,jdbcType=INTEGER},
+      size = #{size,jdbcType=INTEGER},
+      is_flaw = #{isFlaw,jdbcType=TINYINT},
+      img_main = #{imgMain,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=INTEGER},
+      sale_price = #{salePrice,jdbcType=INTEGER},
+      my_sale_price = #{mySalePrice,jdbcType=INTEGER},
+      flaw_describe = #{flawDescribe,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      skn = #{skn,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      stock_num = #{stockNum,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where nm_sku = #{nmSku,jdbcType=INTEGER}
+  </update>
+</mapper>

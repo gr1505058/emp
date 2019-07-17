@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gr.mymapper.MyProductMapper" >
+
+  <!-- 查询语句 -->
+  <select id="getBrandId" resultType="java.lang.Integer">
+    select DISTINCT brand from nm_product p
+    WHERE p.nm_sku IS NOT NULL
+    <if test="isFlaw == 0">AND p.is_flaw=#{isFlaw}</if>
+    <if test="msort != 0">AND p.msort=#{msort}</if>
+    <if test="misort != 0">AND p.misort=#{misort}</if>
+    <if test="size != 0">AND p.size=#{size}</if>
+  </select>
+
+  <select id="getSizeId" resultType="java.lang.Integer">
+    select DISTINCT size from nm_product p
+    WHERE p.nm_sku IS NOT NULL
+    <if test="isFlaw == 0">AND p.is_flaw=#{isFlaw}</if>
+    <if test="msort != 0">AND p.msort=#{msort}</if>
+    <if test="misort != 0">AND p.misort=#{misort}</if>
+    <if test="brand != 0">AND p.brand=#{brand}</if>
+  </select>
+
+  <insert id="insertOrderGetId" useGeneratedKeys="true" parameterType="cn.gr.entity.NmOrder" keyProperty="id" keyColumn="id">
+    insert into nm_order (receive_name, receive_address,receive_phone_number, express_number,express_info,sku,total_price,add_time,status)
+    values (#{receiveName,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR},#{receivePhoneNumber,jdbcType=VARCHAR},
+     #{expressNumber,jdbcType=VARCHAR},#{expressInfo,jdbcType=VARCHAR},#{sku,jdbcType=VARCHAR},
+     #{totalPrice,jdbcType=VARCHAR},#{addTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER})
+  </insert>
+</mapper>

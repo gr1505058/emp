@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html ng-app="ng-app-nm">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>有货内卖-商品详情</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="nm-css/product.css" rel="stylesheet">
+    <script src="nm-js/angular.min.js"></script>
+    <script src="nm-js/angular-cookies.min.js"></script>
+
+</head>
+
+<body ng-controller="ng-ctrl-nm-product">
+
+    <div id="wrapper">
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <ul class="nav navbar-top-links pull-left">
+                    <li style="width: 100%;padding-top: 0px;border-radius:0px">
+                        <a href="index.html" class="pull-left" style="color: black"><strong>有货内卖</strong></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    <li id="animation_box" class="animated" style="width: 100%;padding-top: 0px;border-radius:0px">
+                        <a href="cart.html">
+                            <i class="fa fa-shopping-cart"></i> 购物车({{sc.length}})
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links pull-right">
+                    <li style="width: 100%;padding-top: 0px;border-radius:0px">
+                        <a href="order-list.html"><i class="fa fa-list"></i> 订单列表</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="lightBoxGallery">
+                                <a href="{{img | imgFilter}}" data-gallery="" ng-repeat="img in productMainImgs"><img src="{{img}}" style="width: 75px;height: 100px"></a>
+
+                                <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                                <div id="blueimp-gallery" class="blueimp-gallery">
+                                    <div class="slides"></div>
+                                    <h3 class="title"></h3>
+                                    <a class="prev">‹</a>
+                                    <a class="next">›</a>
+                                    <a class="close">×</a>
+                                    <a class="play-pause"></a>
+                                    <ol class="indicator"></ol>
+                                </div>
+                            </div>
+                            <h2><strong>{{product.title}}</strong></h2>
+                            <p>市场价： <span class="market-price">¥{{product.marketPrice}}</span></p>
+                            <p>促销价： <span class="sale-price">¥{{product.mySalePrice}}</span></p>
+                            <p>尺码： {{product.sizeName}}</p>
+                            <div><button class="form-control btn addCartBtn animated" ng-click="add2Cart()" ng-show="!add2CartSuccess" id="animation_box_1"><i class="fa fa-shopping-cart"> 加入购物车 </i></button></div>
+                            <div id="animation_box_2" ng-show="add2CartSuccess" class="row animated">
+                                <div class="col-xs-12"><i class="fa" ng-class="{true:'fa-minus-square-o',false:'fa-check-square-o'}[addInfo.hasSku]" ng-style="addInfo.style"> {{addInfo.info}} </i></div>
+                                <div class="col-xs-6"><a class="form-control btn addCartBtn" href="cart.html"> 去购物车查看 <i class="fa fa-angle-double-right"></i></a></div>
+                                <div class="col-xs-6"><button class="form-control btn btn-white col-xs-6" ng-click="add2CartSuccess=false"> <strong>继续购物</strong> </button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <hr>
+                    <div class="text-center article-title" style="margin-top: 0px">
+                        <strong>商品详情 DETAILS</strong>
+                        <h1 class="text-danger"><strong>残次描述：{{product.flawDescribe}}</strong></h1>
+                        <p><span class="text-muted">原skn详情页：</span><a href="http://www.yohobuy.com/product/{{product.skn}}.html">http://www.yohobuy.com/product/{{product.skn}}.html</a></p>
+
+                        <div class="carousel slide" id="carousel3">
+                            <div class="carousel-inner">
+                                <div class="item gallery active">
+                                    <div class="row">
+                                        <div class="col-sm-6" ng-repeat="detail in productDetails">
+                                            <img alt="image" class="img-responsive" src="{{detail.val}}" ng-show="detail.flag=='1'">
+                                            <span class="productDetailWord" ng-show="detail.flag=='0'">{{detail.val}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- blueimp gallery -->
+    <script src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+    <script src="nm-js/ng-app.js"></script>
+    <script src="nm-js/ng-ctrl-product.js"></script>
+
+</body>
+
+</html>
