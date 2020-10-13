@@ -28,7 +28,7 @@
     <logback.version>1.0.13</logback.version>
     <slf4j.version>1.7.5</slf4j.version>
     <!-- Test -->
-    <junit.version>4.11</junit.version>
+    <junit.version>4.13.1</junit.version>
     <!-- Mybatis generator -->
     <mybatis.generator.generatorConfig.xml>${basedir}/src/test/java/generatorConfig.xml</mybatis.generator.generatorConfig.xml>
     <mybatis.generator.generatorConfig.properties>file:///${basedir}/src/test/java/generatorConfig.properties</mybatis.generator.generatorConfig.properties>
